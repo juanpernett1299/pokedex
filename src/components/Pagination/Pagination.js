@@ -2,20 +2,24 @@ import { useState } from "react";
 import "./Pagination.css";
 
 const Pagination = ({ setOffset, offset, limit, count }) => {
-  let pages = Math.round(count / limit);
+  let pages = Math.ceil(count / limit);
   let [page, setPage] = useState(1);
 
   const toPrev = (e) => {
     let newOff = offset - limit;
-    setPage(page - 1);
-    setOffset(newOff);
+    if (page > 1) {
+      setPage(page - 1);
+      setOffset(newOff);
+    }
     console.log(newOff + "  " + page);
   };
 
   const toNext = (e) => {
     let newOff = offset + limit;
-    setPage(page + 1);
-    setOffset(newOff);
+    if (page <= pages) {
+      setPage(page + 1);
+      setOffset(newOff);
+    }
     console.log(newOff + "  " + page);
   };
 
